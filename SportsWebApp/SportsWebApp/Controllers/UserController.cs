@@ -27,7 +27,7 @@ namespace SportsWebApp.Controllers
             return Ok(Users);
         }
 
-        public async Task<IActionResult> CreateUser([FromBody] User user)
+        public async Task<IActionResult> CreateUserAsync([FromBody] User user)
         {
             if (!ModelState.IsValid)
             {
@@ -37,6 +37,23 @@ namespace SportsWebApp.Controllers
             await context.SaveChangesAsync();
 
             return RedirectToAction("Index");
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUserAsync([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var user = await context.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            context.Users.Remove(user);
+            await context.SaveChangesAsync();
+            return Ok(user);
         }
     }
 }

@@ -13,7 +13,19 @@ export class UserListComponent implements OnInit {
   constructor(private _userService : UserService) { }
 
   ngOnInit() {
-    let user;
     this._userService.getUser();
+  }
+
+  deleteUser(id : number){
+    if(confirm("Are you sure?")) {
+      this._userService.deleteUser(id).subscribe(
+        res => {
+          this._userService.getUser();
+        },
+        err => {
+          console.log(err);
+        }
+      )
+    }
   }
 }

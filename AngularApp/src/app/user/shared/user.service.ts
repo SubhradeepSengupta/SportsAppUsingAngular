@@ -27,15 +27,15 @@ export class UserService {
       );
   }
 
-  // createUser() {
-  //   return this._http.post(this.URl + 'User', this.FormData);
-  // }
+  createUser() {
+    return this._http.post(this.URl + 'User', this.FormData);
+  }
 
-  // updateUser() {
-  //   return this._http.put(this.URl + 'User/' + this.FormData.ID, this.FormData);
-  // }
+  updateUser() {
+    return this._http.put(this.URl + 'User/' + this.FormData.id, this.FormData);
+  }
 
-  // deleteUser(id) {
-  //   return this._http.delete(this.URl + 'User/' + id);
-  // }
+  deleteUser(id : number) {
+    return this._http.delete(this.URl + 'User/' + id);
+  }
 }
