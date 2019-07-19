@@ -1,0 +1,14 @@
+C:\Users\subhradeep\Desktop\Asp.net Core Test\SportsAppWithAngular\SportsWebApp\SportsWebApp\bin\Debug\netcoreapp2.1\SportsWebApp.deps.json
+C:\Users\subhradeep\Desktop\Asp.net Core Test\SportsAppWithAngular\SportsWebApp\SportsWebApp\bin\Debug\netcoreapp2.1\SportsWebApp.runtimeconfig.json
+C:\Users\subhradeep\Desktop\Asp.net Core Test\SportsAppWithAngular\SportsWebApp\SportsWebApp\bin\Debug\netcoreapp2.1\SportsWebApp.runtimeconfig.dev.json
+C:\Users\subhradeep\Desktop\Asp.net Core Test\SportsAppWithAngular\SportsWebApp\SportsWebApp\bin\Debug\netcoreapp2.1\SportsWebApp.dll
+C:\Users\subhradeep\Desktop\Asp.net Core Test\SportsAppWithAngular\SportsWebApp\SportsWebApp\bin\Debug\netcoreapp2.1\SportsWebApp.pdb
+C:\Users\subhradeep\Desktop\Asp.net Core Test\SportsAppWithAngular\SportsWebApp\SportsWebApp\obj\Debug\netcoreapp2.1\SportsWebApp.csproj.CoreCompileInputs.cache
+C:\Users\subhradeep\Desktop\Asp.net Core Test\SportsAppWithAngular\SportsWebApp\SportsWebApp\obj\Debug\netcoreapp2.1\SportsWebApp.RazorAssemblyInfo.cache
+C:\Users\subhradeep\Desktop\Asp.net Core Test\SportsAppWithAngular\SportsWebApp\SportsWebApp\obj\Debug\netcoreapp2.1\SportsWebApp.RazorAssemblyInfo.cs
+C:\Users\subhradeep\Desktop\Asp.net Core Test\SportsAppWithAngular\SportsWebApp\SportsWebApp\obj\Debug\netcoreapp2.1\SportsWebApp.AssemblyInfoInputs.cache
+C:\Users\subhradeep\Desktop\Asp.net Core Test\SportsAppWithAngular\SportsWebApp\SportsWebApp\obj\Debug\netcoreapp2.1\SportsWebApp.AssemblyInfo.cs
+C:\Users\subhradeep\Desktop\Asp.net Core Test\SportsAppWithAngular\SportsWebApp\SportsWebApp\obj\Debug\netcoreapp2.1\SportsWebApp.RazorTargetAssemblyInfo.cache
+C:\Users\subhradeep\Desktop\Asp.net Core Test\SportsAppWithAngular\SportsWebApp\SportsWebApp\obj\Debug\netcoreapp2.1\SportsWebApp.dll
+C:\Users\subhradeep\Desktop\Asp.net Core Test\SportsAppWithAngular\SportsWebApp\SportsWebApp\obj\Debug\netcoreapp2.1\SportsWebApp.pdb
+C:\Users\subhradeep\Desktop\Asp.net Core Test\SportsAppWithAngular\SportsWebApp\SportsWebApp\obj\Debug\netcoreapp2.1\SportsWebApp.csprojAssemblyReference.cache
