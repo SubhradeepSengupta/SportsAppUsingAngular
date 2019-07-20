@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { User } from './user.model';
+import { HttpClient } from '@angular/common/http';
+import { User, UserRole } from './user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,19 +12,43 @@ export class UserService {
   URl = 'http://localhost:50923/api/';
   UserList: User[];
 
-  headers: HttpHeaders;
-  constructor(private _http: HttpClient) {
-    this.headers = new HttpHeaders();
-    this.headers.append('Accept', 'application/json');
+  UserRoleEnum: any[] = [
+    {
+      key: UserRole.Coach, value: 'Coach'
+    },
+    {
+      key: UserRole.Athlete, value: 'Athlete'
+    }
+  ];
 
+  constructor(private _http: HttpClient) {
   }
 
   getUser() {
     // converting observable to promise and returning the list of data as Model array
     return this._http.get(this.URl + 'User').toPromise()
-    .then(res => 
-      this.UserList = res as User[]
-      );
+      .then(res => {
+        this.UserList = res as User[];
+        this.UserList.forEach(user => {
+          user.userrole = this.UserRoleEnum
+            .filter(u => u.key == user.role)[0].value;
+        })
+      }
+      )
+  }
+
+  getUserById(id: number) {
+    return this._http.get(this.URl + 'User/' + id).toPromise()
+      .then(res => {
+        this.UserList = res as User[];
+        this.UserList = res as User[];
+        this.UserList.forEach(user => {
+          user.userrole = this.UserRoleEnum
+            .filter(u => u.key == user.role)[0].value;
+        })
+        console.log(this.UserList);
+      }
+      )
   }
 
   createUser() {
@@ -35,7 +59,7 @@ export class UserService {
     return this._http.put(this.URl + 'User/' + this.FormData.id, this.FormData);
   }
 
-  deleteUser(id : number) {
+  deleteUser(id: number) {
     return this._http.delete(this.URl + 'User/' + id);
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../shared/user.service';
-import { User } from '../shared/user.model';
+import { User, UserRole } from '../shared/user.model';
 
 @Component({
   selector: 'app-user-list',
@@ -10,6 +10,7 @@ import { User } from '../shared/user.model';
 export class UserListComponent implements OnInit {
 
   user : User[];
+
   constructor(private _userService : UserService) { }
 
   ngOnInit() {

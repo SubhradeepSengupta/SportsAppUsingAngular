@@ -27,6 +27,14 @@ namespace SportsWebApp.Controllers
             return Ok(Users);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUserById([FromRoute] int id)
+        {
+            var Users = await context.Users.Where(u => u.ID == id).ToListAsync();
+            return Ok(Users);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> CreateUserAsync([FromBody] User user)
         {
             if (!ModelState.IsValid)
@@ -36,7 +44,27 @@ namespace SportsWebApp.Controllers
             context.Users.Add(user);
             await context.SaveChangesAsync();
 
-            return RedirectToAction("Index");
+            return Ok(user);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> EditUserAsync([FromRoute] int id, [FromBody] User user)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if(id != user.ID)
+            {
+                return BadRequest();
+            }
+
+            User edituser = await context.Users.Where(u => u.ID == id).FirstOrDefaultAsync();
+            context.Users.Update(edituser);
+            await context.SaveChangesAsync();
+
+            return Ok(User);
         }
 
         [HttpDelete("{id}")]

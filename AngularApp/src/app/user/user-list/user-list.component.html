@@ -4,16 +4,17 @@
         <thead>
             <tr>
                 <td>Name</td>
-                <td colspan="3">User Role</td>
+                <td>User Role</td>
+                <td colspan="2"></td>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let person of _userService.UserList" style="cursor: pointer">
+            <tr *ngFor="let person of _userService.UserList">
                 <td>
                     {{ person.name }}
                 </td>
                 <td>
-                    {{ person.role }}
+                    {{ person.userrole }}
                 </td>
                 <td><button class="btn btn-primary" [routerLink]='["/edit-user/", person.id]'>Edit</button></td>
                 <td><button class="btn btn-danger" (click)="deleteUser(person.id)">Delete</button></td>

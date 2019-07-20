@@ -1,6 +1,12 @@
 export class User {
     id : number;
     name : string;
-    role : number;
+    role : UserRole;
+    userrole : string;
     userTestMappers : object;
+}
+
+export enum UserRole {
+    Coach,
+    Athlete
 }

@@ -25,6 +25,11 @@ import { UserService } from './user/shared/user.service';
         pathMatch: 'full'
       },
       { 
+        path : 'user-list', 
+        component: UserListComponent, 
+        pathMatch: 'full'
+      },
+      { 
         path : 'create-user', 
         component: UserCreateComponent
       },
