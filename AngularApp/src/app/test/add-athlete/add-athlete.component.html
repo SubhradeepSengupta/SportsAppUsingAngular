@@ -1,0 +1,19 @@
+<div class="jumbotron" style="margin-top: 3%; text-align: center;">
+    <h3>Add Athlete To Test</h3>
+
+    <form #form="ngForm" autocomplete="off">
+        <div class="container">
+            <select class="form-control" id="name" name="name" [(ngModel)]="_testService.AthleteAddFormData.name"
+                style="margin-bottom: 3%;" required>
+                <option *ngFor="let user of _testService.AthleteList"> {{ user.name }} </option>
+            </select>
+
+            <input class="form-control" id="distance" name="distance" [(ngModel)]="_testService.AthleteAddFormData.distance"
+            style="margin-bottom: 3%;" required>
+
+            <div class="form-group">
+                <button class="btn btn-success" type="submit" (click)="userSubmit(TestId)">Save</button>
+            </div>
+        </div>
+    </form>
+</div>

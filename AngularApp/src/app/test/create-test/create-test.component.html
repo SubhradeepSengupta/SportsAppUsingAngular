@@ -1,0 +1,25 @@
+<div class="jumbotron" style="margin-top: 3%; text-align: center;">
+    <h3>Create New Test</h3>
+
+    <form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+        <input type="text" name="id" [value]="_testService.FormData.id" hidden>
+
+        <div class="form-group">
+            <input type="datetime-local" name="date" #date="ngModel" [(ngModel)]="_testService.FormData.date"
+                class="form-control" required>
+        </div>
+
+        <select name="testtype" #testtype="ngModel" [(ngModel)]="_testService.FormData.testtype" class="form-control"
+            style="margin-bottom: 3%;" required>
+            <option value ="">--Select--</option>
+            <option *ngFor="let test of _testService.TestTypeList" > {{ test.name }} </option>
+        </select>
+
+        <div class="form-group">
+            <button class="btn btn-success btn-lg" type="submit" [disabled]="form.invalid">Save</button>
+        </div>
+        <div class="form-group">
+            <a class="btn btn-primary" [routerLink]="['/test-list']">back</a>
+        </div>
+    </form>
+</div>

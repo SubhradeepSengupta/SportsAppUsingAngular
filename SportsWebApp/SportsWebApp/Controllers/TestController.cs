@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SportsWebApp.Models;
+using SportsWebApp.ViewModel;
 
 namespace SportsWebApp.Controllers
 {
@@ -17,6 +19,131 @@ namespace SportsWebApp.Controllers
         public TestController(SportsDbContext context)
         {
             this.context = context;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            //var sth = await context.TestTypeMappers.Include(t => t.Test.UserTestMappers).Include(t => t.TestType).ToListAsync();
+            return Ok(await context.TestTypeMappers.Include(t => t.Test.UserTestMappers).Include(t => t.TestType).ToListAsync());
+        }
+
+        [HttpGet("GetTestType")]
+        public async Task<IActionResult> GetTestTypeAsync()
+        {
+            return Ok(await context.TestTypes.ToListAsync());
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetTestById([FromRoute] int id)
+        {
+            var test = await context.TestTypeMappers.Include(t => t.Test).ThenInclude(t => t.UserTestMappers).ThenInclude(t => t.User).Include(t => t.TestType).Where(t => t.TestID == id).ToListAsync();
+            return Ok(await context.TestTypeMappers.Include(t => t.Test.UserTestMappers).Include(t => t.TestType).Where(t => t.TestID == id).ToListAsync());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateTestAsync([FromBody] TestViewModel test)
+        {
+            TestType TestTypes = await context.TestTypes.FirstOrDefaultAsync(t => t.Name == test.TestType);
+            TestTypeMapper TestType = new TestTypeMapper();
+            Test Tests = new Test();
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            Tests.Date = test.Date;
+            context.Tests.Add(Tests);
+            TestType.TestID = Tests.ID;
+            TestType.TestTypeID = TestTypes.ID;
+            context.TestTypeMappers.Add(TestType);
+            await context.SaveChangesAsync();
+
+            return Ok(test);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTestAsync([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var test = await context.Tests.FindAsync(id);
+            if (test == null)
+            {
+                return NotFound();
+            }
+            context.Tests.Remove(test);
+            await context.SaveChangesAsync();
+            return Ok(test);
+        }
+
+        [HttpPost("{id}")]
+        public async Task<IActionResult> AddAthleteAsync([FromRoute] int id, [FromBody] AthleteAddViewModel athlete)
+        {
+            UserTestMapper UserTest = new UserTestMapper();
+            var UserExist = (from user in context.UserTestMappers.Where(t => t.TestID == id)
+                             select user.User.Name).ToList();
+            var Tests = await context.Tests.FirstOrDefaultAsync(t => t.ID == id);
+            var Users = context.Users.Where(u => u.Name == athlete.Name);
+
+            if (!UserExist.Contains(athlete.Name))
+            {
+                UserTest.TestID = Tests.ID;
+                foreach (User user in Users)
+                {
+                    UserTest.UserID = user.ID;
+                }
+                if (athlete.Distance != 0)
+                {
+                    UserTest.CooperTestDistance = athlete.Distance;
+                    UserTest.FitnessRating = CalculateFitness(athlete.Distance);
+                }
+                else
+                {
+                    UserTest.SprintTestTime = athlete.Time;
+                }
+                context.UserTestMappers.Add(UserTest);
+            }
+            else
+            {
+                var UpdateUser = context.UserTestMappers.Where(u => u.User.Name == athlete.Name).Where(u => u.TestID == id).FirstOrDefault();
+
+                if (athlete.Distance != 0)
+                {
+                    UpdateUser.CooperTestDistance = athlete.Distance;
+                    UpdateUser.FitnessRating = CalculateFitness(athlete.Distance);
+                }
+                else
+                {
+                    UpdateUser.SprintTestTime = athlete.Time;
+                }
+                context.UserTestMappers.Update(UpdateUser);
+            }
+            await context.SaveChangesAsync();
+            return Ok(athlete);
+        }
+
+        private string CalculateFitness(double distance)
+        {
+            if (distance <= 1000)
+            {
+                return "Below Average";
+            }
+            else if (distance > 1000 && distance <= 2000)
+            {
+                return "Average";
+            }
+            else if (distance > 2000 && distance <= 3500)
+            {
+                return "Good";
+            }
+            else if (distance > 3500)
+            {
+                return "Very Good";
+            }
+            return " ";
         }
     }
 }

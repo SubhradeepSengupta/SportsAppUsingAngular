@@ -9,6 +9,11 @@ import { UserListComponent } from './user/user-list/user-list.component';
 import { UserCreateComponent } from './user/user-create/user-create.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { UserService } from './user/shared/user.service';
+import { TestListComponent } from './test/test-list/test-list.component';
+import { CreateTestComponent } from './test/create-test/create-test.component';
+import { TestDetailsComponent } from './test/test-details/test-details.component';
+import { AddAthleteComponent } from './test/add-athlete/add-athlete.component';
+import { EditAthleteComponent } from './test/edit-athlete/edit-athlete.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +26,7 @@ import { UserService } from './user/shared/user.service';
     RouterModule.forRoot([
       { 
         path : '', 
-        component: UserListComponent, 
+        component: TestListComponent, 
         pathMatch: 'full'
       },
       { 
@@ -36,6 +41,26 @@ import { UserService } from './user/shared/user.service';
       { 
         path : 'edit-user/:id',
         component: UserEditComponent
+      },
+      {
+        path: 'test-list',
+        component: TestListComponent
+      },
+      {
+        path: 'create-test',
+        component: CreateTestComponent
+      },
+      {
+        path: 'test-details/:id',
+        component: TestDetailsComponent
+      },
+      {
+        path: 'test-details/:id/add-athlete',
+        component: AddAthleteComponent
+      },
+      {
+        path: 'edit-athlete/:id',
+        component: EditAthleteComponent
       },
     ])
   ],

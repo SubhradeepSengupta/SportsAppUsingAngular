@@ -1,3 +1,21 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" [routerLink]="['/test-list']">Sports Application</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['/user-list']">User </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/test-list']">Test</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
 <div class="container">
   <router-outlet></router-outlet>
 </div>

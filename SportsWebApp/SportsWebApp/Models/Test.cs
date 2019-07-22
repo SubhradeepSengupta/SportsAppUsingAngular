@@ -13,6 +13,5 @@ namespace SportsWebApp.Models
         [Required]
         public DateTime Date { get; set; }
         public virtual ICollection<UserTestMapper> UserTestMappers { get; set; }
-        public virtual TestTypeMapper TestTypeMapper { get; set; }
     }
 }

@@ -46,6 +46,7 @@ export class UserService {
           user.userrole = this.UserRoleEnum
             .filter(u => u.key == user.role)[0].value;
         })
+        this.FormData = this.UserList.filter(u => u.id = id)[0];
         console.log(this.UserList);
       }
       )

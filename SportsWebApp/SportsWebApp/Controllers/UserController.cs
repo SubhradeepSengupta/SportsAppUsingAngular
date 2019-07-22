@@ -27,6 +27,12 @@ namespace SportsWebApp.Controllers
             return Ok(Users);
         }
 
+        [HttpGet("Athlete")]
+        public async Task<IActionResult> GetTestTypeAsync()
+        {
+            return Ok(await context.Users.Where(u => u.Role == UserRole.Athlete).ToListAsync());
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById([FromRoute] int id)
         {
@@ -61,10 +67,11 @@ namespace SportsWebApp.Controllers
             }
 
             User edituser = await context.Users.Where(u => u.ID == id).FirstOrDefaultAsync();
+            edituser.Role = user.Role;
             context.Users.Update(edituser);
             await context.SaveChangesAsync();
 
-            return Ok(User);
+            return Ok(user);
         }
 
         [HttpDelete("{id}")]

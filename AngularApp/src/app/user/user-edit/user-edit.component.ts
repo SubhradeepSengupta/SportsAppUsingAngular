@@ -19,7 +19,7 @@ export class UserEditComponent implements OnInit {
   editUser(form : NgForm){
     this._userService.updateUser().subscribe(
       _res => {
-        this._router.navigate(['/user_list']);
+        this._router.navigate(['/user-list']);
       },
       err => {
         console.log(err);
