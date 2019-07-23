@@ -135,7 +135,8 @@ namespace SportsWebApp.Controllers
         [HttpPut("{testId}/{athleteId}")]
         public async Task<IActionResult> AthleteEditASync([FromRoute] int testId, [FromRoute] int athleteId, [FromBody] UserPerTestViewModel athlete)
         {
-            var UserPerTest = context.UserTestMappers.Where(u => u.TestID == testId).Where(u => u.UserID == athleteId).FirstOrDefault();
+            var UserPerTest = context.UserTestMappers.Include(u => u.User).Where(u => u.TestID == testId).Where(u => u.UserID == athleteId).FirstOrDefault();
+            UserPerTest.User.Name = athlete.User.Name;
             if (athlete.CooperTestDistance != null)
             {
                 UserPerTest.CooperTestDistance = athlete.CooperTestDistance;

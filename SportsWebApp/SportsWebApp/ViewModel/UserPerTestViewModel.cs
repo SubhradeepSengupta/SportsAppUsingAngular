@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SportsWebApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,5 +14,6 @@ namespace SportsWebApp.ViewModel
         public int? SprintTestTime { get; set; }
         public double? CooperTestDistance { get; set; }
         public string FitnessRating { get; set; }
+        public User User { get; set; }
     }
 }
