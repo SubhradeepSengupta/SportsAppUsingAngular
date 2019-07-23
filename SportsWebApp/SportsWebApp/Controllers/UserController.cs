@@ -67,6 +67,7 @@ namespace SportsWebApp.Controllers
             }
 
             User edituser = await context.Users.Where(u => u.ID == id).FirstOrDefaultAsync();
+            edituser.Name = user.Name;
             edituser.Role = user.Role;
             context.Users.Update(edituser);
             await context.SaveChangesAsync();
