@@ -1,29 +1,72 @@
 <div class="jumbotron" style="margin-top: 3%; text-align: center;">
-    <div class="container" style="margin-bottom: 5%;" *ngFor="let test of _testService.TestList">
+    <div class="container" *ngFor="let test of _testService.TestList">
         <h3>Name = {{ test.testType.name }} </h3>
-        <h4>Date= {{ test.test.date }} </h4>
-    </div>
+        <h4>Date= {{ test.test.date | date: 'dd/MM/yyyy' }} </h4>
 
-    <table class="table table-striped table-hover">
-        <thead>
-            <tr>
-                <td>Ranking</td>
-                <td>Distance(meter)</td>
-                <td>Fitness Rating</td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let test of _testService.TestList">
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr *ngFor="let test of _testService.TestList">
-                <td colspan="3"><a class="btn btn-success" [routerLink]="['/test-details/', test.testID, 'add-athlete']">Add Athlete To Test</a></td>
-            </tr>
-            <tr *ngFor="let test of _testService.TestList">
-                <td colspan="3"><button type="submit" class="btn btn-danger" (click)="deleteTest(test.testID)">Delete Test</button></td>
-            </tr>
-        </tbody>
-    </table>
+        <div *ngIf="test.testType.name === 'Cooper test'; then coopertest else sprinttest">
+        </div>
+        <ng-template #coopertest>
+            <table class="table table-striped table-hover" style="margin-top: 5%;">
+                <thead>
+                    <tr>
+                        <td>Ranking</td>
+                        <td>Distance(meter)</td>
+                        <td>Fitness Rating</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of test.test.userTestMappers">
+                        <td><a [routerLink]="['/edit-athlete/', test.testID, user.userID]" style="display: block; text-decoration: none;
+                            color: black;">{{ user.user.name }}</a></td>
+                        <td><a [routerLink]="['/edit-athlete/', test.testID, user.userID]" style="display: block; text-decoration: none;
+                                color: black;">{{ user.cooperTestDistance }}</a>
+                        </td>
+                        <td><a [routerLink]="['/edit-athlete/', test.testID, user.userID]" style="display: block; text-decoration: none;
+                            color: black;">{{ user.fitnessRating }}</a>
+                        </td>
+                    </tr>
+                    <tr *ngFor="let test of _testService.TestList">
+                        <td colspan="3"><a class="btn btn-success"
+                                [routerLink]="['/test-details/', test.testID, 'add-athlete']">Add Athlete To Test</a>
+                        </td>
+                    </tr>
+                    <tr *ngFor="let test of _testService.TestList">
+                        <td colspan="3"><button type="submit" class="btn btn-danger"
+                                (click)="deleteTest(test.testID)">Delete
+                                Test</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </ng-template>
+
+        <ng-template #sprinttest>
+            <table class="table table-striped table-hover" style="margin-top: 5%;">
+                <thead>
+                    <tr>
+                        <td>Ranking</td>
+                        <td>Time(Seconds)</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of test.test.userTestMappers">
+                        <td><a [routerLink]="['/edit-athlete/', test.testID, user.userID]" style="display: block; text-decoration: none;
+                        color: black;">{{ user.user.name }}</a></td>
+                        <td><a [routerLink]="['/edit-athlete/', test.testID, user.userID]" style="display: block; text-decoration: none;
+                            color: black;">{{ user.sprintTestTime }}</a>
+                        </td>
+                    </tr>
+                    <tr *ngFor="let test of _testService.TestList">
+                        <td colspan="3"><a class="btn btn-success"
+                                [routerLink]="['/test-details/', test.testID, 'add-athlete']">Add Athlete To Test</a>
+                        </td>
+                    </tr>
+                    <tr *ngFor="let test of _testService.TestList">
+                        <td colspan="3"><button type="submit" class="btn btn-danger"
+                                (click)="deleteTest(test.testID)">Delete
+                                Test</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </ng-template>
+    </div>
 </div>

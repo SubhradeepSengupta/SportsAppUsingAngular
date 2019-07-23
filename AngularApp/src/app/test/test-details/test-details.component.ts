@@ -9,10 +9,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class TestDetailsComponent implements OnInit {
 
-  constructor(private _testService : TestService, private _route : ActivatedRoute, private _router : Router) { }
+  toDisplay: boolean;
+  constructor(private _testService : TestService, private _route : ActivatedRoute, private _router : Router) { 
+    toDisplay: false;
+  }
 
   ngOnInit() {
     this._testService.getTestById(+this._route.snapshot.paramMap.get('id'));
+    this.toDisplay = true;
   }
 
   deleteTest(id : number) {

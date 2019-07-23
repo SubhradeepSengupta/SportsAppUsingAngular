@@ -14,7 +14,7 @@ namespace SportsWebApp.Models
         public string Name { get; set; }
         [Required]
         public UserRole Role { get; set; }
-        public virtual ICollection<UserTestMapper> UserTestMappers { get; set; }
+        //public virtual ICollection<UserTestMapper> UserTestMappers { get; set; }
     }
 
     public enum UserRole

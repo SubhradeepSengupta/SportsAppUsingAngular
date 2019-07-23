@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TestTypeMapperModel, TestType, TestViewModel, UserTestViewModel } from './testmodel.model';
+import { TestTypeMapperModel, TestType, TestViewModel } from './testmodel.model';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -11,7 +11,7 @@ export class TestService {
   TestList: TestTypeMapperModel[];
   TestTypeList: TestType[];
   FormData: TestViewModel;
-  AthleteAddFormData: UserTestViewModel;
+  AthleteAddFormData: any;
   AthleteList: any[];
 
   constructor(private _http: HttpClient) { }
@@ -20,7 +20,6 @@ export class TestService {
     this._http.get(this.Url + 'Test').toPromise()
       .then(res => {
         this.TestList = res as TestTypeMapperModel[];
-        console.log(res);
       },
         err => {
           console.log(err);
@@ -42,6 +41,10 @@ export class TestService {
       })
   }
 
+  getUserByTestId(testId : number, userId : number) {
+    return this._http.get(this.Url + 'Test/GetUserByTestId/' +testId + "/" +userId).toPromise();
+  }
+
   createTest() {
     return this._http.post(this.Url + 'Test', this.FormData);
   }
@@ -61,5 +64,14 @@ export class TestService {
 
   createAthlete(id : number) {
     return this._http.post(this.Url + 'Test/' + id, this.AthleteAddFormData);
+  }
+
+  editAthlete(testId : number, athleteId : number, editDetails : object) {
+    return this._http.put(this.Url + 'Test/' +testId + "/" + athleteId, editDetails);
+  }
+
+  deteleAthlete(testId: number, athleteId : number) {
+    debugger
+    return this._http.delete(this.Url + 'Test/' + testId + "/" + athleteId);
   }
 }

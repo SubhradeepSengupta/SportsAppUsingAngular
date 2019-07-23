@@ -11,7 +11,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let test of _testService.TestList" >
-                <td><a [routerLink]="['/test-details/', test.test.id]" style="text-decoration: none; display: block; color: black;"> {{ test.test.date }} </a></td>
+                <td><a [routerLink]="['/test-details/', test.test.id]" style="text-decoration: none; display: block; color: black;"> {{ test.test.date | date: 'dd/MM/yyyy' }} </a></td>
                 <td><a [routerLink]="['/test-details/', test.test.id]" style="text-decoration: none; display: block; color: black;"> {{ test.test.userTestMappers.length }} </a></td>
                 <td><a [routerLink]="['/test-details/', test.test.id]" style="text-decoration: none; display: block; color: black;"> {{ test.testType.name }} </a></td>
             </tr>

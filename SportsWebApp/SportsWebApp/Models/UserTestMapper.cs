@@ -17,6 +17,7 @@ namespace SportsWebApp.Models
         public virtual User User { get; set; }
 
         [ForeignKey("TestID")]
+        [NotMapped]
         public virtual Test Test { get; set; }
     }
 }

@@ -1,1 +1,55 @@
-<p>edit-athlete works!</p>
+<div class="jumbotron" style="margin-top: 3%; text-align: center;">
+    <h3 style="margin-bottom: 5%;">Edit Athlete</h3>
+
+    <div *ngIf="toDisplay">
+        <div class="container">
+            <div *ngIf="Athlete.cooperTestDistance !== null">
+                <form #form="ngForm" autocomplete="off">
+                    <div class="container">
+                        <input type="text" name="id" [value]="Athlete.userID" hidden>
+                        <input type="text" name="id" [value]="Athlete.testID" hidden>
+                        <label>Name</label>
+                        <input class="form-control" id="name" name="name" [(ngModel)]="Athlete.user.name"
+                            style="margin-bottom: 3%;" required>
+
+                        <label>Distance</label>
+                        <input class="form-control" id="cooperTestDistance" name="cooperTestDistance"
+                            [(ngModel)]="Athlete.cooperTestDistance" style="margin-bottom: 3%;" required>
+
+                        <div class="form-group">
+                            <button class="btn btn-success" type="submit" (click)="editAthlete()">Save</button>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-danger" type="submit" (click)="deleteAthlete()">Delete Athlete From
+                                Test</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div *ngIf="Athlete.cooperTestDistance === null">
+                <form #form="ngForm" autocomplete="off">
+                    <div class="container">
+                        <input type="text" name="id" [value]="Athlete.userID" hidden>
+                        <input type="text" name="id" [value]="Athlete.testID" hidden>
+                        <label>Name</label>
+                        <input class="form-control" id="name" name="name" [(ngModel)]="Athlete.user.name"
+                            style="margin-bottom: 3%;" required >
+
+                        <label>Time</label>
+                        <input class="form-control" id="sprintTestTime" name="sprintTestTime"
+                            [(ngModel)]="Athlete.sprintTestTime" style="margin-bottom: 3%;" required>
+
+                        <div class="form-group">
+                            <button class="btn btn-success" type="submit" (click)="editAthlete()">Save</button>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-danger" type="submit" (click)="deleteAthlete()">Delete Athlete From
+                                Test</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

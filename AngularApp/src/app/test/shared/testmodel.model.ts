@@ -37,8 +37,3 @@ export class TestViewModel {
     testtype : string;
 }
 
-export class UserTestViewModel {
-    name : string;
-    distance? : number;
-    time? : number;
-}

@@ -1,19 +1,49 @@
 <div class="jumbotron" style="margin-top: 3%; text-align: center;">
     <h3>Add Athlete To Test</h3>
 
-    <form #form="ngForm" autocomplete="off">
-        <div class="container">
-            <select class="form-control" id="name" name="name" [(ngModel)]="_testService.AthleteAddFormData.name"
-                style="margin-bottom: 3%;" required>
-                <option *ngFor="let user of _testService.AthleteList"> {{ user.name }} </option>
-            </select>
+    <div class="container" *ngFor="let test of _testService.TestList">
+        <div *ngIf="test.testType.name === 'Cooper test'; then coopertest else sprinttest"></div>
 
-            <input class="form-control" id="distance" name="distance" [(ngModel)]="_testService.AthleteAddFormData.distance"
-            style="margin-bottom: 3%;" required>
+        <ng-template #coopertest>
+            <form #form="ngForm" autocomplete="off">
+                <div class="container">
+                    <label>Name</label>
+                    <select class="form-control" id="name" name="name"
+                        [(ngModel)]="_testService.AthleteAddFormData.name" style="margin-bottom: 3%;" required>
+                        <option value disabled>--Select--</option>
+                        <option *ngFor="let user of _testService.AthleteList"> {{ user.name }} </option>
+                    </select>
 
-            <div class="form-group">
-                <button class="btn btn-success" type="submit" (click)="userSubmit(TestId)">Save</button>
-            </div>
-        </div>
-    </form>
+                    <label>Distance</label>
+                    <input class="form-control" id="distance" name="distance"
+                        [(ngModel)]="_testService.AthleteAddFormData.distance" style="margin-bottom: 3%;" required>
+
+                    <div class="form-group">
+                        <button class="btn btn-success" type="submit" (click)="userSubmit(TestId)">Save</button>
+                    </div>
+                </div>
+            </form>
+        </ng-template>
+
+        <ng-template #sprinttest>
+            <form #form="ngForm" autocomplete="off">
+                <div class="container">
+                    <label>Name</label>
+                    <select class="form-control" id="name" name="name"
+                        [(ngModel)]="_testService.AthleteAddFormData.name" style="margin-bottom: 3%;" required>
+                        <option value disabled>--Select--</option>
+                        <option *ngFor="let user of _testService.AthleteList"> {{ user.name }} </option>
+                    </select>
+
+                    <label>Time</label>
+                    <input class="form-control" id="time" name="time" [(ngModel)]="_testService.AthleteAddFormData.time"
+                        style="margin-bottom: 3%;" required>
+
+                    <div class="form-group">
+                        <button class="btn btn-success" type="submit" (click)="userSubmit(TestId)">Save</button>
+                    </div>
+                </div>
+            </form>
+        </ng-template>
+    </div>
 </div>

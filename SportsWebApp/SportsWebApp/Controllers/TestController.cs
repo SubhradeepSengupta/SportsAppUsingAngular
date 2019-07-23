@@ -24,8 +24,8 @@ namespace SportsWebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            //var sth = await context.TestTypeMappers.Include(t => t.Test.UserTestMappers).Include(t => t.TestType).ToListAsync();
-            return Ok(await context.TestTypeMappers.Include(t => t.Test.UserTestMappers).Include(t => t.TestType).ToListAsync());
+            //var sth = await context.TestTypeMappers.Include(t => t.Test.UserTestMappers).Include(t => t.TestType).OrderByDescending(t => t.Test.Date).ToListAsync();
+            return Ok(await context.TestTypeMappers.Include(t => t.Test.UserTestMappers).Include(t => t.TestType).OrderByDescending(t => t.Test.Date).ToListAsync());
         }
 
         [HttpGet("GetTestType")]
@@ -38,7 +38,14 @@ namespace SportsWebApp.Controllers
         public async Task<IActionResult> GetTestById([FromRoute] int id)
         {
             var test = await context.TestTypeMappers.Include(t => t.Test).ThenInclude(t => t.UserTestMappers).ThenInclude(t => t.User).Include(t => t.TestType).Where(t => t.TestID == id).ToListAsync();
-            return Ok(await context.TestTypeMappers.Include(t => t.Test.UserTestMappers).Include(t => t.TestType).Where(t => t.TestID == id).ToListAsync());
+            return Ok(test);
+        }
+
+        [HttpGet("GetUserByTestId/{testId}/{userId}")]
+        public async Task<IActionResult> GetUserByTestId([FromRoute] int testId, [FromRoute] int userId)
+        {
+            var user = await context.UserTestMappers.Include(u => u.User).Where(u => u.TestID == testId).Where(u => u.UserID == userId).FirstOrDefaultAsync();
+            return Ok(user);
         }
 
         [HttpPost]
@@ -125,7 +132,35 @@ namespace SportsWebApp.Controllers
             return Ok(athlete);
         }
 
-        private string CalculateFitness(double distance)
+        [HttpPut("{testId}/{athleteId}")]
+        public async Task<IActionResult> AthleteEditASync([FromRoute] int testId, [FromRoute] int athleteId, [FromBody] UserPerTestViewModel athlete)
+        {
+            var UserPerTest = context.UserTestMappers.Where(u => u.TestID == testId).Where(u => u.UserID == athleteId).FirstOrDefault();
+            if (athlete.CooperTestDistance != null)
+            {
+                UserPerTest.CooperTestDistance = athlete.CooperTestDistance;
+                UserPerTest.FitnessRating = CalculateFitness(athlete.CooperTestDistance);
+            }
+            else
+            {
+                UserPerTest.SprintTestTime = athlete.SprintTestTime;
+            }
+            context.UserTestMappers.Update(UserPerTest);
+            await context.SaveChangesAsync();
+
+            return Ok(athlete);
+        }
+
+        [HttpDelete("{testId}/{athleteId}")]
+        public async Task<IActionResult> DeleteTestAsync([FromRoute] int testId, [FromRoute] int athleteId)
+        {
+            var athlete = context.UserTestMappers.Where(a => a.TestID == testId).Where(a => a.UserID == athleteId).FirstOrDefault();
+            context.UserTestMappers.Remove(athlete);
+            await context.SaveChangesAsync();
+            return Ok();
+        }
+
+        private string CalculateFitness(double? distance)
         {
             if (distance <= 1000)
             {

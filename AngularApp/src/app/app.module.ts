@@ -59,7 +59,7 @@ import { EditAthleteComponent } from './test/edit-athlete/edit-athlete.component
         component: AddAthleteComponent
       },
       {
-        path: 'edit-athlete/:id',
+        path: 'edit-athlete/:testId/:userId',
         component: EditAthleteComponent
       },
     ])

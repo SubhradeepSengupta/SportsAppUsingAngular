@@ -16,6 +16,7 @@ export class AddAthleteComponent implements OnInit {
   ngOnInit() {
     this.TestId = this._route.snapshot.params['id'];
     this._testService.getAthlete();
+    this._testService.getTestById(this.TestId);
     this._testService.AthleteAddFormData = {
       name : '',
       distance : 0,
