@@ -153,7 +153,7 @@ namespace SportsWebApp.Controllers
         }
 
         [HttpDelete("{testId}/{athleteId}")]
-        public async Task<IActionResult> DeleteTestAsync([FromRoute] int testId, [FromRoute] int athleteId)
+        public async Task<IActionResult> DeleteAthleteAsync([FromRoute] int testId, [FromRoute] int athleteId)
         {
             var athlete = context.UserTestMappers.Where(a => a.TestID == testId).Where(a => a.UserID == athleteId).FirstOrDefault();
             context.UserTestMappers.Remove(athlete);
