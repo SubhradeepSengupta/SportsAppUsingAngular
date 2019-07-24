@@ -11,12 +11,10 @@ export class TestDetailsComponent implements OnInit {
 
   toDisplay: boolean;
   constructor(private _testService : TestService, private _route : ActivatedRoute, private _router : Router) { 
-    toDisplay: false;
   }
 
   ngOnInit() {
     this._testService.getTestById(+this._route.snapshot.paramMap.get('id'));
-    this.toDisplay = true;
   }
 
   deleteTest(id : number) {

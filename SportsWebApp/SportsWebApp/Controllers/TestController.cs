@@ -38,6 +38,24 @@ namespace SportsWebApp.Controllers
         public async Task<IActionResult> GetTestById([FromRoute] int id)
         {
             var test = await context.TestTypeMappers.Include(t => t.Test).ThenInclude(t => t.UserTestMappers).ThenInclude(t => t.User).Include(t => t.TestType).Where(t => t.TestID == id).ToListAsync();
+            List<UserTestMapper> user = new List<UserTestMapper>();
+
+            foreach (var item in test)
+            {
+                foreach (var users in item.Test.UserTestMappers)
+                {
+                    if (users.CooperTestDistance != null)
+                    {
+                        user = await context.UserTestMappers.Where(u => u.TestID == id).OrderByDescending(u => u.CooperTestDistance).ToListAsync();
+                    }
+                    else
+                    {
+                        user = await context.UserTestMappers.Where(u => u.TestID == id).OrderBy(u => u.SprintTestTime).ToListAsync();
+                    }
+                    item.Test.UserTestMappers = user;
+                }
+
+            }
             return Ok(test);
         }
 
